@@ -1,6 +1,15 @@
 <template>
   <div class="part" :class="position">
-    <img :src="selectedPart.src" title="arm"/>
+    <!-- routing can be dome by two ways. following is example using the click event and 
+    using reoter link. uncomment the following line to use onclick instead on router-link -->
+    <!-- <img @click="showPartInfo()" :src="selectedPart.src" title="arm"/> -->
+    <router-link :to="{name: 'Parts',
+          params: {
+            id: this.selectedPart.id,
+            partType: this.selectedPart.type,
+          }}">
+      <img @click="showPartInfo()" :src="selectedPart.src" title="arm"/>
+    </router-link>
     <button @click="selectPreviousPart()" class="prev-selector"></button>
     <button @click="selectNextPart()" class="next-selector"></button>
     <span class="sale" v-show="selectedPart.onSale">Sale!</span>
@@ -48,6 +57,17 @@ export default {
     this.emitSelectedParts();
   },
   methods: {
+    showPartInfo() {
+      this.$router.push(
+        {
+          name: 'Parts',
+          params: {
+            id: this.selectedPart.id,
+            partType: this.selectedPart.type,
+          }
+        }
+      );
+    },
     emitSelectedParts() {
       this.$emit('partSelected', this.selectedPart)
     },
@@ -94,6 +114,7 @@ export default {
 }
 .part img {
   width:165px;
+  cursor: pointer;
 }
 .top {
   border-bottom: none;
