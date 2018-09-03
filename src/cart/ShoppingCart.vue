@@ -46,6 +46,48 @@
         </tr>
       </tbody>
     </table>
+    <h2 class="saleItems">Cheapest parts:</h2>
+    <table v-if="CheapestItems">
+      <thead>
+        <tr>
+          <th class="robot-title">
+            Part name
+          </th>
+           <th class="robot-type">
+            Part type
+          </th>
+          <th class="cost">
+            Cost
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(robotPart, index) in CheapestItems.heads" :key="index">
+          <td class="robot-title">
+            {{robotPart.title}}
+          </td>
+          <td class="robot-title">
+            {{robotPart.type}}
+          </td>
+          <td class="cost">
+            {{robotPart.cost}}
+          </td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr v-for="(robotPart, index) in CheapestItems.arms" :key="index">
+          <td class="robot-title">
+            {{robotPart.title}}
+          </td>
+          <td class="robot-title">
+            {{robotPart.type}}
+          </td>
+          <td class="cost">
+            {{robotPart.cost}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
  </div>
 </template>
 
@@ -58,6 +100,9 @@ export default {
       },
       cartSaleItems() {
           return this.$store.getters.cartSaleItems;
+      },
+      CheapestItems() {
+          return this.$store.getters.cheapestParts;
       }
   }
 };
