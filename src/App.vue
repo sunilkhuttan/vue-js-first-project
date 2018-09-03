@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <!-- <div>
+      Root: {{rootFoo}} <br/>
+      User: {{usersFoo}} <br/>
+      Robot: {{robotsFoo}} <br/>
+      RootGetter: {{rootGetterFoo}} <br/>
+      RobotsGetter: {{robotsGetterFoo}} <br/>
+    </div> -->
     <header>
       <nav>
         <ul>
@@ -36,13 +43,23 @@
 
 <script>
 // import HomePage from './home/HomePage.vue';
-
+// map stat here just for an example to get properties in root state and robots state using different syntex
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'app',
   computed: {
+    ...mapState({
+      rootFoo: 'foo',
+      usersFoo: state => state.users.foo,
+    }),
+    // following syntex only used for namespaces modules. It is saying getthe foo property from robots module
+    ...mapState('robots', { robotsFoo: 'foo'}),
+
+    ...mapGetters({rootGetterFoo: 'foo'}),
+    ...mapGetters('robots', {robotsGetterFoo: 'foo'}),
     cart() {
-      return this.$store.state.cart;
+      return this.$store.state.robots.cart;
     }
   }
 };
